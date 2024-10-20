@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detoxify-Naga</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+    <h1>Detoxify-Naga</h1>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+        </ul>
+        <input type="text" id="search" placeholder="Search blog posts..." onkeyup="searchPosts()">
+        <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
+    </nav>
+</header>
+
+<main>
+    <!-- Blog Form -->
+    <section class="blog-form">
+        <h3>Create a New Blog Post</h3>
+        <form id="new-blog-form" onsubmit="submitPost(); return false;">
+            <input type="text" id="title" placeholder="Blog Title" required maxlength="100">
+            <textarea id="content" placeholder="Blog Content" required minlength="10"></textarea>
+            <input type="file" id="image-upload" accept="image/*" onchange="previewImage(this)">
+            <img id="image-preview" alt="Image Preview" style="display:none; width: 100%; margin-top: 10px;">
+            <select id="category" required>
+                <option value="health">Health</option>
+                <option value="detox">Detox</option>
+                <option value="recipes">Recipes</option>
+            </select>
+            <input type="text" id="tags" placeholder="Add tags separated by commas" />
+            <button type="submit">Publish</button>
+        </form>
+    </section>
+
+    <!-- Blog Posts Section -->
+    <section id="blog-posts">
+        <!-- Dynamic posts will be added here -->
+    </section>
+
+    <!-- Sidebar for Extra Features -->
+    <aside id="sidebar">
+        <h3>Subscribe to our Newsletter</h3>
+        <form id="newsletter-form" onsubmit="subscribeNewsletter(); return false;">
+            <input type="email" id="email" placeholder="Enter your email" required>
+            <button type="submit">Subscribe</button>
+        </form>
+    </aside>
+
+</main>
+
+<!-- Footer -->
+<footer>
+    <p>&copy; 2024 Detoxify-Naga. All rights reserved.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+  </html>
+  
