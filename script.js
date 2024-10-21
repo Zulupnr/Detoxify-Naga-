@@ -1,90 +1,157 @@
-// Toggle Dark Mode
-function toggleDarkMode() {
-    document.body.classList.toggle('dark-mode');
+
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-// Search Functionality
-function searchPosts() {
-    const searchValue = document.getElementById('search').value.toLowerCase();
-    const posts = document.querySelectorAll('.post');
-    
-    posts.forEach(post => {
-        const title = post.querySelector('h2').textContent.toLowerCase();
-        post.style.display = title.includes(searchValue) ? '' : 'none';
-    });
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    background-color: #f9f9f9;
+    color: #333;
 }
 
-// Preview Image
-function previewImage(input) {
-    const preview = document.getElementById('image-preview');
-    if (input.files && input.files[0]) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            preview.src = e.target.result;
-            preview.style.display = 'block';
-        };
-        reader.readAsDataURL(input.files[0]);
+/* Header Styles */
+header {
+    background: #333; /* Dark Background */
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+}
+
+nav {
+    margin-top: 10px;
+}
+
+nav ul {
+    list-style: none;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+input[type="text"], input[type="email"], input[type="password"] {
+    padding: 5px;
+    margin-left: 10px;
+}
+
+/* Main Styles */
+main {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.auth, .blog-form, .sidebar {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    margin: 0 10px;
+}
+
+.auth h3, .blog-form h3 {
+    margin-bottom: 15px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background: #333; /* Dark Button Background */
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #444; /* Darker on Hover */
+}
+
+/* Blog Post Styles */
+#blog-posts {
+    flex: 2;
+}
+
+.post {
+    background: white;
+    margin: 20px 0;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.post h2 {
+    color: #333; /* Dark Text for Titles */
+}
+
+.view-count {
+    font-weight: bold;
+}
+
+/* Sidebar Styles */
+#sidebar {
+    background: #f1f1f1;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    margin-left: 10px;
+}
+
+/* Footer Styles */
+footer {
+    background: #333; /* Dark Footer Background */
+    color: white;
+    text-align: center;
+    padding: 10px 20px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Dark Mode Styles */
+.dark-mode {
+    background-color: #333;
+    color: white;
+}
+
+.dark-mode input,
+.dark-mode textarea,
+.dark-mode button {
+    background-color: #444;
+    color: white;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    main {
+        flex-direction: column;
     }
-}
 
-// Submit New Blog Post
-function submitPost() {
-    const title = document.getElementById('title').value;
-    const content = document.getElementById('content').value;
-    const category = document.getElementById('category').value;
-    const tags = document.getElementById('tags').value;
-    const imageFile = document.getElementById('image-upload').files[0];
-
-    const post = document.createElement('div');
-    post.className = 'post';
-    
-    post.innerHTML = `
-        <h2>${title}</h2>
-        <img src="" alt="Blog Image" style="width:100%;">
-        <p>${content}</p>
-        <span class="view-count">Views: 0</span>
-        <button class="edit-post" onclick="editPost(this.parentElement)">Edit</button>
-        <button class="delete-post" onclick="deletePost(this.parentElement)">Delete</button>
-        <div class="social-share">
-            <a href="https://facebook.com/sharer/sharer.php?u=yoururl.com" target="_blank">Share on Facebook</a>
-            <a href="https://twitter.com/intent/tweet?text=Check out this blog&url=yoururl.com" target="_blank">Share on Twitter</a>
-        </div>
-    `;
-    
-    if (imageFile) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            post.querySelector('img').src = e.target.result;
-        };
-        reader.readAsDataURL(imageFile);
+    #sidebar {
+        margin-left: 0;
+        margin-top: 20px;
     }
-
-    document.getElementById('blog-posts').appendChild(post);
-
-    // Reset form after submission
-    document.getElementById('new-blog-form').reset();
-    document.getElementById('image-preview').style.display = 'none';
-}
-
-// Edit Post
-function editPost(postElement) {
-    const title = postElement.querySelector('h2').textContent;
-    const content = postElement.querySelector('p').textContent;
-    
-    document.getElementById('title').value = title;
-    document.getElementById('content').value = content;
-
-    deletePost(postElement);
-}
-
-// Delete Post
-function deletePost(postElement) {
-    postElement.remove();
-}
-
-// Newsletter Subscription
-function subscribeNewsletter() {
-    const email = document.getElementById('email').value;
-    alert("Subscribed with email: " + email);
-    // Here, implement backend code to handle subscriptions
 }
